@@ -241,9 +241,9 @@ class DbTransfer(object):
             return float(f.readline().split()[0])
 
     def load(self):
-        import os
-        return os.popen(
-            "cat /proc/loadavg | awk '{ print $1\" \"$2\" \"$3 }'").readlines()[0][:-2]
+        a=open('/proc/loadavg').readline().split(' ')
+        a=a[3:]
+        return ' '.join(a)[:-2]
 
     def trafficShow(self, Traffic):
         if Traffic < 1024:
