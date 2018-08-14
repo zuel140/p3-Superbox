@@ -584,12 +584,17 @@ class DbTransfer(object):
                             'encode cfg key "%s" fail, val "%s"' % (name, cfg[name]))
 
             if 'node_speedlimit' in cfg:
+                # if both setting speedlimit, just choose the smaller one
                 if float(
-                        self.node_speedlimit) > 0.0 or float(
+                        self.node_speedlimit) > 0.0 and float(
                         cfg['node_speedlimit']) > 0.0:
-                    cfg['node_speedlimit'] = max(
+                    cfg['node_speedlimit'] = min(
                         float(
                             self.node_speedlimit), float(
+                            cfg['node_speedlimit']))
+                else:
+                    cfg['node_speedlimit'] = max(
+                        float(self.node_speedlimit), float(
                             cfg['node_speedlimit']))
             else:
                 cfg['node_speedlimit'] = max(
