@@ -2143,6 +2143,12 @@ class TCPRelay(object):
                     self.mu_speed_tester_d[id] = SpeedTester(bandwidth)
                     continue
 
+            if 'node_speedlimit' not in self.multi_user_table[id]:
+                bandwidth = 0
+            else:
+                bandwidth = float(
+                    self.multi_user_table[id]['node_speedlimit']) * 128
+
             self.mu_speed_tester_u[id] = SpeedTester(bandwidth)
             self.mu_speed_tester_d[id] = SpeedTester(bandwidth)
 
